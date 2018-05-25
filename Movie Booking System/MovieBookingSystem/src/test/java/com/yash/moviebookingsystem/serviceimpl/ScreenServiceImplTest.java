@@ -5,9 +5,11 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -58,20 +60,21 @@ public class ScreenServiceImplTest {
 		when(screenDAO.addScreen(screen)).thenReturn(false);
 		assertFalse(screenService.addNewScreen(screen));
 	}
-	
-	@Test(expected= NullException.class)
+
+	@Test(expected = NullException.class)
 	public void addMovieToScreen_WhenNullIsGiven_ThrowNullException() {
-		screenService.addMovieToScreen("screen 1",null);
+		screenService.addMovieToScreen("screen 1", null);
 	}
-	
+
 	@Test
 	public void addMovieToScreen_WhenScreenDoNotHaveSeatingArragement_ShouldReturnFalse() {
 		Movie movie = new Movie(101, "deadpool", "02:30", "Marvel", Arrays.asList("Wade Willsion"));
 		List<Screen> screens = Arrays.asList(new Screen("screen 1"), new Screen("screen 2"), new Screen("screen 3"));
 		when(screenDAO.getScreens()).thenReturn(screens);
-		assertFalse(screenService.addMovieToScreen("screen 1",movie));
+		when(screenDAO.updateScreens(screens)).thenReturn(true);
+		assertFalse(screenService.addMovieToScreen("screen 1", movie));
 	}
-	
+
 	@Test
 	public void addMovieToScreen_WhenScreenNotAvailable_ShouldReturnFalse() {
 		Movie movie = new Movie(101, "deadpool", "02:30", "Marvel", Arrays.asList("Wade Willsion"));
@@ -80,9 +83,10 @@ public class ScreenServiceImplTest {
 		screen.setSeatingArrangement(new LinkedHashMap<String, List<Row>>());
 		List<Screen> screens = Arrays.asList(screen);
 		when(screenDAO.getScreens()).thenReturn(screens);
-		assertFalse(screenService.addMovieToScreen("screen 3",movie));
+		when(screenDAO.updateScreens(screens)).thenReturn(true);
+		assertFalse(screenService.addMovieToScreen("screen 3", movie));
 	}
-	
+
 	@Test
 	public void addMovieToScreen_WhenObjectIsGiven_ShouldAddMoveToScreenAndReturnTrue() {
 		Movie movie = new Movie(101, "deadpool", "02:30", "Marvel", Arrays.asList("Wade Willsion"));
@@ -91,8 +95,43 @@ public class ScreenServiceImplTest {
 		screen.setSeatingArrangement(new LinkedHashMap<String, List<Row>>());
 		List<Screen> screens = Arrays.asList(screen);
 		when(screenDAO.getScreens()).thenReturn(screens);
-		assertTrue(screenService.addMovieToScreen("screen 1",movie));
+		when(screenDAO.updateScreens(screens)).thenReturn(true);
+		assertTrue(screenService.addMovieToScreen("screen 1", movie));
+	}
+
+	@Test(expected = NullException.class)
+	public void addSeatingsToScreen_WhenNullIsGiven_ThrowNullException() {
+		screenService.addSeatingsToScreen(null, "Screen 1");
+	}
+
+	@Test
+	public void addSeatingsToScreen_WhenInvalidObjectIsGiven_ShouldNotAddSeatingAndReturnFalse() {
+		Map<String, List<Row>> seating = new LinkedHashMap<>();
+		seating.put("gold", new ArrayList<Row>());
+		screenService.addSeatingsToScreen(seating, "Screen 1");
+	}
+
+	@Test
+	public void addSeatingsToScreen_WhenValidObjectAndInValidScreenNameIsGiven_ShouldNotAddSeatingAndReturnFalse() {
+		Map<String, List<Row>> seating = new LinkedHashMap<>();
+		seating.put("premium", new ArrayList<Row>());
+		seating.put("silver", new ArrayList<Row>());
+		seating.put("gold", new ArrayList<Row>());
+		List<Screen> screens = Arrays.asList(new Screen("screen 1"), new Screen("screen 2"), new Screen("screen 3"));
+		when(screenDAO.getScreens()).thenReturn(screens);
+		assertFalse(screenService.addSeatingsToScreen(seating, "Screen 4"));
 	}
 	
-	
+	@Test
+	public void addSeatingsToScreen_WhenValidObjectAndScreenNameIsGiven_ShouldAddSeatingAndReturnTrue() {
+		Map<String, List<Row>> seating = new LinkedHashMap<>();
+		seating.put("premium", new ArrayList<Row>());
+		seating.put("silver", new ArrayList<Row>());
+		seating.put("gold", new ArrayList<Row>());
+		List<Screen> screens = Arrays.asList(new Screen("screen 1"), new Screen("screen 2"), new Screen("screen 3"));
+		when(screenDAO.getScreens()).thenReturn(screens);
+		when(screenDAO.updateScreens(screens)).thenReturn(true);
+		assertTrue(screenService.addSeatingsToScreen(seating, "Screen 1"));
+	}
+
 }

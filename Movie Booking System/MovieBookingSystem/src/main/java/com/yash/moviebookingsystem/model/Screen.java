@@ -8,7 +8,7 @@ public class Screen {
 	private String screenName;
 	private Movie movie;
 	private Map<String, List<Row>> seatingArrangement;
-	private Map<String, Map<String, List<Row>>> shows;
+	private List<Show> shows;
 
 	public Screen() {
 	}
@@ -17,8 +17,7 @@ public class Screen {
 		this.screenName = screenName;
 	}
 
-	public Screen(String screenName, Movie movie, Map<String, List<Row>> seatingArrangement,
-			Map<String, Map<String, List<Row>>> shows) {
+	public Screen(String screenName, Movie movie, Map<String, List<Row>> seatingArrangement, List<Show> shows) {
 		super();
 		this.screenName = screenName;
 		this.movie = movie;
@@ -50,11 +49,11 @@ public class Screen {
 		this.seatingArrangement = seatingArrangement;
 	}
 
-	public Map<String, Map<String, List<Row>>> getShows() {
+	public List<Show> getShows() {
 		return shows;
 	}
 
-	public void setShows(Map<String, Map<String, List<Row>>> shows) {
+	public void setShows(List<Show> shows) {
 		this.shows = shows;
 	}
 

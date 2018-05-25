@@ -1,34 +1,45 @@
 package com.yash.moviebookingsystem.daoimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.yash.moviebookingsystem.dao.ScreenDAO;
 import com.yash.moviebookingsystem.model.Screen;
+import com.yash.moviebookingsystem.util.JSONUtil;
 
 public class ScreenDAOImpl implements ScreenDAO {
-	
-	private static ScreenDAO screenDAO;
-	
-	private List<Screen> screens;
-	
-	public static ScreenDAO getInstanceOfScreenDAO(){
-		if(screenDAO==null){
-			screenDAO = new ScreenDAOImpl();
-		}
-		return screenDAO;
+
+	private JSONUtil jsonUtil = JSONUtil.getInstance();
+
+	private List<Screen> screens = null;
+
+	public ScreenDAOImpl(JSONUtil jsonUtil) {
+		this.jsonUtil = jsonUtil;
 	}
-	
+
 	public ScreenDAOImpl() {
-		screens=new ArrayList<Screen>();
 	}
-	
+
 	public List<Screen> getScreens() {
-		return screens;
+		return jsonUtil.readObjectFromJSONFile();
 	}
 
 	public boolean addScreen(Screen screen) {
-		return screens.add(screen);
+		boolean addScreenStatus = false;
+		screens = jsonUtil.readObjectFromJSONFile();
+		screens.add(screen);
+		int addStatus = jsonUtil.writeObjectInJSONFile(screens);
+		if (addStatus == 1) {
+			addScreenStatus = true;
+		}
+		return addScreenStatus;
+	}
+
+	public boolean updateScreens(List<Screen> screens) {
+		boolean isUpdated = false;
+		if (jsonUtil.writeObjectInJSONFile(screens) == 1) {
+			isUpdated = true;
+		}
+		return isUpdated;
 	}
 
 }

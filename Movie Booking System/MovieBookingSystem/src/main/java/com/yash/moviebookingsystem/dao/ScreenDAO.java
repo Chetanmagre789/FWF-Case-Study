@@ -10,4 +10,6 @@ public interface ScreenDAO {
 
 	boolean addScreen(Screen screen);
 
+	boolean updateScreens(List<Screen> screens);
+
 }
