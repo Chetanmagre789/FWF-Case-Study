@@ -19,6 +19,9 @@ public class Movie {
 		this.actors = actors;
 	}
 
+	public Movie() {
+	}
+
 	public int getId() {
 		return id;
 	}

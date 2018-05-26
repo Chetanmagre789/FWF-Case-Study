@@ -17,6 +17,6 @@ public interface ScreenService {
 
 	boolean addSeatingsToScreen(Map<String, List<Row>> seatings, String screenName);
 
-	void updateScreeens(List<Screen> screens);
+	void updateScreens(List<Screen> screens);
 
 }

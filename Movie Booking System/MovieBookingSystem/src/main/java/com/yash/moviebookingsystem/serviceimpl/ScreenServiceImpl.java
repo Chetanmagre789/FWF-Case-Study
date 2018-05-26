@@ -156,7 +156,7 @@ public class ScreenServiceImpl implements ScreenService {
 		return screenDAO.getScreens();
 	}
 
-	public void updateScreeens(List<Screen> screens) {
+	public void updateScreens(List<Screen> screens) {
 		screenDAO.updateScreens(screens);
 	}
 

@@ -12,17 +12,17 @@ public class RowServiceImplTest {
 	private RowService rowService = new RowServiceImpl();
 
 	@Test(expected = InvalidDesignInputException.class)
-	public void designSeatingForClass_WhenClassAndTotalNumberOfRowAndInvalidFirstRowSeatCountIsGiven_ThrowInvalidInputException() {
+	public void designSeatingForClass_WhenClassAndTotalNumberOfRowAndInvalidFirstRowSeatCountIsGiven_ThrowInvalidDesignInputException() {
 		rowService.designSeatingForClass("silver", 2, 0);
 	}
 
 	@Test(expected = InvalidDesignInputException.class)
-	public void designSeatingForClass_WhenClassAndInvalidTotalNumberOfRowAndFirstRowSeatCountIsGiven_ThrowInvalidInputException() {
+	public void designSeatingForClass_WhenClassAndInvalidTotalNumberOfRowAndFirstRowSeatCountIsGiven_ThrowInvalidDesignInputException() {
 		rowService.designSeatingForClass("silver", 0, 0);
 	}
 
 	@Test(expected = InvalidDesignInputException.class)
-	public void designSeatingForClass_WhenInvalidClassAndTotalNumberOfRowAndFirstRowSeatCountIsGiven_ThrowInvalidInputException() {
+	public void designSeatingForClass_WhenInvalidClassAndTotalNumberOfRowAndFirstRowSeatCountIsGiven_ThrowInvalidDesignInputException() {
 		rowService.designSeatingForClass("Temp", 2, 4);
 	}
 

@@ -40,7 +40,11 @@ public class RowServiceImpl implements RowService {
 	private void checkForInvalidDesignInput(int rowCount, int firstRowSeatCount) {
 		if (firstRowSeatCount < (rowCount * 2) || rowCount == 0) {
 			throw new InvalidDesignInputException(
-					"Minimum number of seat in 1st row to make Seating should be greater or equal to " + rowCount * 2+"\nRow Should Not be More Than 10");
+					"Minimum number of seat in 1st row to make Seating should be greater or equal to " + rowCount * 2
+							+ "\n");
+		}
+		if (rowCount > 10) {
+			throw new InvalidDesignInputException("Row Should Not be More Than 10");
 		}
 	}
 
