@@ -28,25 +28,48 @@ Running
 0. Exit 
 
 Enter Your Choice :-
+
 5
+
 Enter Movie name :
+
 DeadPool 2
+
 10:00 AM   2:30 PM   5:50 PM   10:00 PM   
+
 Enter Show time To Check Seats :
+
 2:30 PM
+
 ---------------Screen This Side--------------------
+
 premium Class
+
 P1	  1 2 3 4 5 6 7 8 9 10 11 12 
+
 P2	   1 2 3 4 5 6 7 8 9 10 
+
 P3	    1 2 3 4 5 6 7 8 
+
 P4	     1 2 3 4 5 6 
+
 P5	      1 2 3 4 
+
 P6	       1 2 
+
 silver Class
+
 S1	  1 2 3 4 5 6 7 8 
+
 S2	   1 2 3 4 5 6 
+
 S3	    1 2 3 4 
+
 S4	     1 2 
+
 gold Class
+
 G1	  1 2 3 4 
+
 G2	   1 2 
+
