@@ -15,15 +15,6 @@ import com.yash.moviebookingsystem.model.Screen;
 
 public class JSONUtil {
 
-	private static JSONUtil jsonUtil;
-
-	public static JSONUtil getInstance() {
-		if (jsonUtil == null) {
-			jsonUtil = new JSONUtil();
-		}
-		return jsonUtil;
-	}
-
 	public int writeObjectInJSONFile(List<Screen> screens) {
 		Gson gson = new GsonBuilder().create();
 		int successStatus=0;
@@ -33,7 +24,6 @@ public class JSONUtil {
 			fileWriter.write(jsonInString);
 			fileWriter.close();
 			successStatus=1;
-			System.out.println(screens);
 		} catch (JsonIOException | IOException e) {
 			e.printStackTrace();
 		}

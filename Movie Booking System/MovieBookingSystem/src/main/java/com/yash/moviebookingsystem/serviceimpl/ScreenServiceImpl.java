@@ -92,7 +92,14 @@ public class ScreenServiceImpl implements ScreenService {
 			}
 		}
 		updateScreens(movieAddedStatus, screens);
+		checkForMovieAdded(movieAddedStatus);
 		return movieAddedStatus;
+	}
+
+	private void checkForMovieAdded(boolean movieAddedStatus) {
+		if (movieAddedStatus) {
+			System.out.println("Movie Added SuccessFully");
+		}
 	}
 
 	private void updateScreens(boolean status, List<Screen> screens) {
@@ -105,8 +112,6 @@ public class ScreenServiceImpl implements ScreenService {
 		if (isScreenNameExist(screenName, screen)) {
 			screen.setMovie(movie);
 			movieAddedStatus = true;
-		} else {
-			System.out.println("Screen not found");
 		}
 		return movieAddedStatus;
 	}
@@ -131,6 +136,10 @@ public class ScreenServiceImpl implements ScreenService {
 		if (seatings.size() == 3) {
 			List<Screen> screens = screenDAO.getScreens();
 			for (Screen screen : screens) {
+				if(screen.getSeatingArrangement()!=null){
+					System.out.println("Seating Arrangement Can Not Change Once Set.");
+					break;
+				}
 				if (isScreenNameExist(screenName, screen)) {
 					screen.setSeatingArrangement(seatings);
 					isSeatingAdded = true;

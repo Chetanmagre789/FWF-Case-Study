@@ -8,7 +8,7 @@ import com.yash.moviebookingsystem.util.JSONUtil;
 
 public class ScreenDAOImpl implements ScreenDAO {
 
-	private JSONUtil jsonUtil = JSONUtil.getInstance();
+	private JSONUtil jsonUtil = new JSONUtil();
 
 	private List<Screen> screens = null;
 

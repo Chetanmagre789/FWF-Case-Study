@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.yash.moviebookingsystem.exception.InvalidDesignInputException;
 import com.yash.moviebookingsystem.exception.InvalidInputException;
 import com.yash.moviebookingsystem.exception.NullException;
@@ -22,7 +24,7 @@ import com.yash.moviebookingsystem.serviceimpl.ScreenServiceImpl;
 import com.yash.moviebookingsystem.serviceimpl.ShowServiceImpl;
 
 public class BookMovieSystem {
-
+	private Logger logger = Logger.getLogger(BookMovieSystem.class);
 	private ScreenService screenService = new ScreenServiceImpl();
 
 	private RowService rowService = new RowServiceImpl();
@@ -32,6 +34,7 @@ public class BookMovieSystem {
 	private Scanner scanOperatorInput = new Scanner(System.in);
 
 	public void displayOperatorMenu() {
+		logger.info("Opertor Menu Method called");
 		int operatorInput = 0;
 		do {
 			System.out.println("---------------- Movie Booking System ---------------");
@@ -70,13 +73,13 @@ public class BookMovieSystem {
 		System.out.println("Enter Movie name :");
 		scanOperatorInput.nextLine();
 		String movieName = scanOperatorInput.nextLine();
-		List<Show> shows= showService.getShowsByMovieName(movieName);
+		List<Show> shows = showService.getShowsByMovieName(movieName);
 		for (Show show : shows) {
-			System.out.print(show.getShowTime()+"   ");
+			System.out.print(show.getShowTime() + "   ");
 		}
 		System.out.println();
 		System.out.println("Enter Show time To Check Seats :");
-		String timeOfShow=scanOperatorInput.nextLine();
+		String timeOfShow = scanOperatorInput.nextLine();
 		for (Show show : shows) {
 			if (show.getShowTime().equalsIgnoreCase(timeOfShow)) {
 				System.out.println("---------------Screen This Side--------------------");
@@ -121,12 +124,13 @@ public class BookMovieSystem {
 		try {
 			showService.createShows(movieName, numberOfShows, gold, silver, premium);
 		} catch (InvalidInputException | NullException exception) {
-			System.out.println(exception.getMessage());
+			logger.error(exception.getMessage());
 		}
 
 	}
 
 	private void addMovieToScreenOption() {
+		boolean isAdded;
 		System.out.println("Enter Screen Name : ");
 		scanOperatorInput.nextLine();
 		String screenName = scanOperatorInput.nextLine();
@@ -147,9 +151,12 @@ public class BookMovieSystem {
 		System.out.println("Enter Movie Duration in HH:mm format : ");
 		movie.setDuration(scanOperatorInput.nextLine());
 		try {
-			screenService.addMovieToScreen(screenName, movie);
+			isAdded=screenService.addMovieToScreen(screenName, movie);
+			if(!isAdded){
+				System.out.println("Screen Found: Invalid Screen Name");
+			}
 		} catch (NullException nullException) {
-			System.out.println(nullException.getMessage());
+			logger.error(nullException.getMessage());
 		}
 	}
 
@@ -159,7 +166,6 @@ public class BookMovieSystem {
 		int rowCount;
 		int initialSeatCount;
 		boolean isAdded = false;
-		do {
 			try {
 				System.out.println("Enter Screen Name : ");
 				scanOperatorInput.nextLine();
@@ -184,10 +190,11 @@ public class BookMovieSystem {
 				seating.put("gold", seats);
 				isAdded = screenService.addSeatingsToScreen(seating, screenName);
 			} catch (InvalidDesignInputException invalidDesignInputException) {
-				System.out.println(invalidDesignInputException.getMessage());
+				logger.error(invalidDesignInputException.getMessage());
 			}
-		} while (!isAdded);
-		System.out.println(screenName);
+			if (isAdded) {
+				System.out.println("Seating is set");
+			}
 	}
 
 	private void addScreenOption() {
@@ -199,11 +206,11 @@ public class BookMovieSystem {
 		try {
 			isAdded = screenService.addNewScreen(screen);
 		} catch (NullException nullException) {
-			System.out.println(nullException.getMessage());
+			logger.error(nullException.getMessage());
 		}
 		if (isAdded)
 			System.out.println("New Screen " + screen.getScreenName() + " Added SuccessFully");
 		else
-			System.out.println("Screen Not Added");
+			logger.error("Screen Not Added");
 	}
 }

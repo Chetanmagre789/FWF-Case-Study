@@ -55,4 +55,5 @@ public class ShowServiceImplTest {
 		when(screenService.getAllScreens()).thenReturn(Arrays.asList(new Screen("screen 1", movie, null, new ArrayList<Show>())));
 		assertEquals(0,showService.getShowsByMovieName("deadpool").size());
 	}
+	
 }

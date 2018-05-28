@@ -24,8 +24,24 @@ public class ShowServiceImpl implements ShowService {
 	public ShowServiceImpl() {
 	}
 
+	/**
+	 * this method will create shows for the given movie and set the price of
+	 * the tickets
+	 * 
+	 * @param movieName
+	 *            name of the movie
+	 * @param numberOfShows
+	 *            number of shows to create for the movie
+	 * @param gold
+	 *            price of gold class
+	 * @param silver
+	 *            price of silver class
+	 * @param premium
+	 *            price of premium class
+	 */
 	public List<Show> createShows(String movieName, int numberOfShows, int gold, int silver, int premium) {
 		boolean isMovieExist = false;
+		boolean isShowsCreated=false;
 		List<Screen> screens = screenService.getAllScreens();
 		checkForEmtyScreens(screens);
 		List<Show> shows = null;
@@ -34,12 +50,20 @@ public class ShowServiceImpl implements ShowService {
 				isMovieExist = true;
 				shows = addNumberOfShows(movieName, numberOfShows, gold, silver, premium);
 				screen.setShows(shows);
+				isShowsCreated=true;
 				break;
 			}
 		}
 		checkForMovieNameExistance(isMovieExist);
+		checkForShowCreated(isShowsCreated);
 		screenService.updateScreens(screens);
 		return shows;
+	}
+
+	private void checkForShowCreated(boolean isShowsCreated) {
+		if(isShowsCreated){
+			System.out.println("Shows created Successfully");
+		}
 	}
 
 	private void checkForEmtyScreens(List<Screen> screens) {
@@ -111,12 +135,12 @@ public class ShowServiceImpl implements ShowService {
 
 	public List<Show> getShowsByMovieName(String movieName) {
 		boolean isMovieExist = false;
-		List<Show> shows=null;
-		List<Screen> screens=screenService.getAllScreens();
+		List<Show> shows = null;
+		List<Screen> screens = screenService.getAllScreens();
 		for (Screen screen : screens) {
-			if(screen.getMovie().getTitle().equalsIgnoreCase(movieName)){
-				isMovieExist=true;
-				shows=screen.getShows();
+			if (screen.getMovie().getTitle().equalsIgnoreCase(movieName)) {
+				isMovieExist = true;
+				shows = screen.getShows();
 			}
 		}
 		checkForMovieNameExistance(isMovieExist);
