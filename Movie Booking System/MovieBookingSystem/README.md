@@ -12,8 +12,10 @@ availability and reports like, Collection report & shows report.
 1. Add Screen Functionality (Tested)
 2. Add Movie to Screen Functionality (Tested)
 3. Add Seating Arrangement Fuctionality (Tested)
-4. Add Shows for Movie Functionality (Tested) (New)
-5. Menu Added (New)
+4. Add Shows for Movie Functionality (Tested)
+5. Show available seats (Tested) (New)
+6. Menu Added (new)
+7. Book Show ticket for movie Functionality (Tested) (New)
 
 #### Project Status 
 Running
@@ -25,7 +27,72 @@ Running
 3. Add Movie To Screen 
 4. Add Shows For Movie 
 5. Check Available Shows 
+6. Book Show Ticket for Movie 
 0. Exit 
+
+Enter Your Choice :-
+6
+DeadPool
+Enter Movie Name from Above List : 
+deadpool
+10:00 AM  2:30 PM  5:50 PM  
+Enter Show Time from Above list : 
+10:00 AM
+---------------Screen This Side--------------------
+
+premium Class
+
+P1	  1 2 3 4 5 6 7 8 
+
+P2	   1 2 3 4 5 6 
+
+P3	    1 2 3 4 
+
+P4	     1 2 
+
+silver Class
+
+S1	  1 2 3 4 5 6 
+
+S2	   1 2 3 4 
+
+S3	    1 2 
+
+gold Class
+
+G1	  X 2 3 4 
+
+G2	   1 2 
+
+Enter Row Number : 
+
+g2
+
+Enter Seat Number : 
+
+1
+
+book More Seat (Y/N)
+
+y
+
+Enter Seat Number : 
+
+2
+
+book More Seat (Y/N)
+
+n
+
+---------------- Movie Booking System ---------------
+1. Add Screen 
+2. Add Seating Arrangement To Screen 
+3. Add Movie To Screen 
+4. Add Shows For Movie 
+5. Check Available Shows 
+6. Book Show Ticket for Movie 
+0. Exit 
+
 
 Enter Your Choice :-
 
@@ -33,43 +100,38 @@ Enter Your Choice :-
 
 Enter Movie name :
 
-DeadPool 2
+deadpool
 
-10:00 AM   2:30 PM   5:50 PM   10:00 PM   
+10:00 AM   2:30 PM   5:50 PM   
 
 Enter Show time To Check Seats :
 
-2:30 PM
+10:00 AM
 
 ---------------Screen This Side--------------------
 
 premium Class
 
-P1	  1 2 3 4 5 6 7 8 9 10 11 12 
+P1	  1 2 3 4 5 6 7 8 
 
-P2	   1 2 3 4 5 6 7 8 9 10 
+P2	   1 2 3 4 5 6 
 
-P3	    1 2 3 4 5 6 7 8 
+P3	    1 2 3 4 
 
-P4	     1 2 3 4 5 6 
-
-P5	      1 2 3 4 
-
-P6	       1 2 
+P4	     1 2 
 
 silver Class
 
-S1	  1 2 3 4 5 6 7 8 
+S1	  1 2 3 4 5 6 
 
-S2	   1 2 3 4 5 6 
+S2	   1 2 3 4 
 
-S3	    1 2 3 4 
-
-S4	     1 2 
+S3	    1 2 
 
 gold Class
 
-G1	  1 2 3 4 
+G1	  X 2 3 4 
 
-G2	   1 2 
+G2	   X X 
+
 
