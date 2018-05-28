@@ -1,6 +1,7 @@
 package com.yash.moviebookingsystem.serviceimpl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -48,12 +49,17 @@ public class ShowServiceImplTest {
 	public void getShowsByMovieName_WhenInvalidMovieIsGiven_ThrowInvalidInputExecption() {
 		showService.getShowsByMovieName("deadpool");
 	}
-	
+
 	@Test
 	public void getShowsByMovieName_WhenValidMovieIsGiven_ShouldReturnListOfShows() {
 		Movie movie = new Movie(101, "deadpool", "02:30", "Marvel", Arrays.asList("Wade Willsion"));
-		when(screenService.getAllScreens()).thenReturn(Arrays.asList(new Screen("screen 1", movie, null, new ArrayList<Show>())));
-		assertEquals(0,showService.getShowsByMovieName("deadpool").size());
+		when(screenService.getAllScreens())
+				.thenReturn(Arrays.asList(new Screen("screen 1", movie, null, new ArrayList<Show>())));
+		assertEquals(0, showService.getShowsByMovieName("deadpool").size());
 	}
-	
+
+	@Test
+	public void bookShowTicketForMovie_WhenMovieNameShowTimeAndRowNumberAndSeatsGiven_shouldBookTicketReturnTrue() {
+		assertTrue(showService.bookShowTicketForMovie("deadpool","2:30 PM","G1",Arrays.asList(2,3,4)));
+	}
 }

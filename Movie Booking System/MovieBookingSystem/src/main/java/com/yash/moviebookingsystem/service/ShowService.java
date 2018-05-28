@@ -10,4 +10,6 @@ public interface ShowService {
 
 	List<Show> getShowsByMovieName(String movieName);
 
+	boolean bookShowTicketForMovie(String movieName, String showTime, String rowIndex, List<Integer> seats);
+
 }

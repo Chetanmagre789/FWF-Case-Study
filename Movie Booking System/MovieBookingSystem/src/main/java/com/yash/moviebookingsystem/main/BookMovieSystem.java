@@ -39,7 +39,7 @@ public class BookMovieSystem {
 		do {
 			System.out.println("---------------- Movie Booking System ---------------");
 			System.out.println(
-					"1. Add Screen \n2. Add Seating Arrangement To Screen \n3. Add Movie To Screen \n4. Add Shows For Movie \n5. Check Available Shows \n0. Exit \n");
+					"1. Add Screen \n2. Add Seating Arrangement To Screen \n3. Add Movie To Screen \n4. Add Shows For Movie \n5. Check Available Shows \n6. Book Show Ticket for Movie \n0. Exit \n");
 			System.out.println("Enter Your Choice :-");
 			operatorInput = scanOperatorInput.nextInt();
 			switch (operatorInput) {
@@ -58,6 +58,9 @@ public class BookMovieSystem {
 			case 5:
 				checkAvailableShowsOption();
 				break;
+			case 6:
+				bookShowTicketForMovieOption();
+				break;
 			case 0:
 				System.out.println("\nThank you for Using Movie Booking System.\n");
 				System.exit(0);
@@ -67,6 +70,64 @@ public class BookMovieSystem {
 				break;
 			}
 		} while (true);
+	}
+
+	private void bookShowTicketForMovieOption() {
+		boolean isMovie = false;
+		int count = 0;
+		boolean isShow = false;
+		List<Show> shows =null;
+		List<Screen> screens = screenService.getAllScreens();
+		for (Screen screen : screens) {
+			if (screen.getMovie() != null) {
+				System.out.println(screen.getMovie().getTitle());
+				count++;
+			} else
+				System.out.println("No Movie in : " + screen.getScreenName());
+		}
+		if (count != 0) {
+			System.out.println("Enter Movie Name from Above List : ");
+			scanOperatorInput.nextLine();
+			String movieName = scanOperatorInput.nextLine();
+			for (Screen screen : screens) {
+				if (screen.getMovie().getTitle().equalsIgnoreCase(movieName)) {
+					isMovie = true;
+					shows = screen.getShows();
+					if (shows == null) {
+						System.out.println("Add Shows for The Movie First");
+					} else {
+						for (Show show : shows) {
+							System.out.print(show.getShowTime() + "  ");
+							isShow = true;
+						}
+						System.out.println();
+					}
+				}
+			}
+			if (!isMovie) {
+				System.out.println("Invalid Movie name");
+			}
+			if (isShow) {
+				System.out.println("Enter Show Time from Above list : ");
+				String showTime=scanOperatorInput.nextLine();
+				showSeatings(shows, showTime);
+				System.out.println("Enter Row Number : ");
+				String rowIndex=scanOperatorInput.nextLine();
+				List<Integer> seats=new ArrayList<>();
+				String stop=null;
+				do {
+					System.out.println("Enter Seat Number : ");
+					seats.add(scanOperatorInput.nextInt());
+					System.out.println("book More Seat (Y/N)");
+					stop = scanOperatorInput.next();
+				} while (stop.equalsIgnoreCase("Y"));
+				showService.bookShowTicketForMovie(movieName, showTime, rowIndex, seats);
+			}		
+			
+		} else {
+			System.out.println("Add Movie First");
+		}
+
 	}
 
 	private void checkAvailableShowsOption() {
@@ -80,6 +141,10 @@ public class BookMovieSystem {
 		System.out.println();
 		System.out.println("Enter Show time To Check Seats :");
 		String timeOfShow = scanOperatorInput.nextLine();
+		showSeatings(shows, timeOfShow);
+	}
+
+	private void showSeatings(List<Show> shows, String timeOfShow) {
 		for (Show show : shows) {
 			if (show.getShowTime().equalsIgnoreCase(timeOfShow)) {
 				System.out.println("---------------Screen This Side--------------------");
@@ -151,8 +216,8 @@ public class BookMovieSystem {
 		System.out.println("Enter Movie Duration in HH:mm format : ");
 		movie.setDuration(scanOperatorInput.nextLine());
 		try {
-			isAdded=screenService.addMovieToScreen(screenName, movie);
-			if(!isAdded){
+			isAdded = screenService.addMovieToScreen(screenName, movie);
+			if (!isAdded) {
 				System.out.println("Screen Found: Invalid Screen Name");
 			}
 		} catch (NullException nullException) {
@@ -166,35 +231,35 @@ public class BookMovieSystem {
 		int rowCount;
 		int initialSeatCount;
 		boolean isAdded = false;
-			try {
-				System.out.println("Enter Screen Name : ");
-				scanOperatorInput.nextLine();
-				screenName = scanOperatorInput.nextLine();
-				System.out.println("Enter Total Number of row in PREMIUM Class maximum 10 Rows");
-				rowCount = scanOperatorInput.nextInt();
-				System.out.println("Enter Number of seat in 1st Row");
-				initialSeatCount = scanOperatorInput.nextInt();
-				List<Row> seats = rowService.designSeatingForClass("premium", rowCount, initialSeatCount);
-				seating.put("premium", seats);
-				System.out.println("Enter Total Number of row in SILVER Class maximum 10 Rows");
-				rowCount = scanOperatorInput.nextInt();
-				System.out.println("Enter Number of seat in 1st Row");
-				initialSeatCount = scanOperatorInput.nextInt();
-				seats = rowService.designSeatingForClass("silver", rowCount, initialSeatCount);
-				seating.put("silver", seats);
-				System.out.println("Enter Total Number of row in GOLD Class maximum 10 Rows");
-				rowCount = scanOperatorInput.nextInt();
-				System.out.println("Enter Number of seat in 1st Row");
-				initialSeatCount = scanOperatorInput.nextInt();
-				seats = rowService.designSeatingForClass("gold", rowCount, initialSeatCount);
-				seating.put("gold", seats);
-				isAdded = screenService.addSeatingsToScreen(seating, screenName);
-			} catch (InvalidDesignInputException invalidDesignInputException) {
-				logger.error(invalidDesignInputException.getMessage());
-			}
-			if (isAdded) {
-				System.out.println("Seating is set");
-			}
+		try {
+			System.out.println("Enter Screen Name : ");
+			scanOperatorInput.nextLine();
+			screenName = scanOperatorInput.nextLine();
+			System.out.println("Enter Total Number of row in PREMIUM Class maximum 10 Rows");
+			rowCount = scanOperatorInput.nextInt();
+			System.out.println("Enter Number of seat in 1st Row");
+			initialSeatCount = scanOperatorInput.nextInt();
+			List<Row> seats = rowService.designSeatingForClass("premium", rowCount, initialSeatCount);
+			seating.put("premium", seats);
+			System.out.println("Enter Total Number of row in SILVER Class maximum 10 Rows");
+			rowCount = scanOperatorInput.nextInt();
+			System.out.println("Enter Number of seat in 1st Row");
+			initialSeatCount = scanOperatorInput.nextInt();
+			seats = rowService.designSeatingForClass("silver", rowCount, initialSeatCount);
+			seating.put("silver", seats);
+			System.out.println("Enter Total Number of row in GOLD Class maximum 10 Rows");
+			rowCount = scanOperatorInput.nextInt();
+			System.out.println("Enter Number of seat in 1st Row");
+			initialSeatCount = scanOperatorInput.nextInt();
+			seats = rowService.designSeatingForClass("gold", rowCount, initialSeatCount);
+			seating.put("gold", seats);
+			isAdded = screenService.addSeatingsToScreen(seating, screenName);
+		} catch (InvalidDesignInputException invalidDesignInputException) {
+			logger.error(invalidDesignInputException.getMessage());
+		}
+		if (isAdded) {
+			System.out.println("Seating is set");
+		}
 	}
 
 	private void addScreenOption() {
