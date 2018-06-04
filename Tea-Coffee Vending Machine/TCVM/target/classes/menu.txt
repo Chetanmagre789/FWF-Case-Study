@@ -1,0 +1,16 @@
+
+***********************************************************
+*               Tea-Coffee Vending Machine                *
+***********************************************************
+
+1. Make Tea				 10/-Rs
+2. Make Coffee				 15/-Rs 
+3. Make Black Tea			 05/-Rs 
+4. Make Black Coffee			 10/-Rs
+5. Refill Container
+6. Check Total Sale
+7. Container Status
+8. Reset Container
+9. Exit TCVM 
+
+Please Enter Your Choice...
