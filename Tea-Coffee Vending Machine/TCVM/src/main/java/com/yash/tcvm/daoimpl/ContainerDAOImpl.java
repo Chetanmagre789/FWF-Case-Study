@@ -31,7 +31,7 @@ public class ContainerDAOImpl implements ContainerDAO {
 	public List<Container> getContainers() {
 		List<Container> containers = JSONUtil.readObjectFromJSONFile();
 		if (containers == null) {
-			insert(initiateContainer(containers));
+			insert(containers);
 			containers = JSONUtil.readObjectFromJSONFile();
 		}
 		return containers;
