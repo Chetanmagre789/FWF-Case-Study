@@ -127,10 +127,11 @@ public class VendingMachine {
 				System.out.println("------------------------------------------------");
 			} catch (FileNotFoundException | EmptyException e) {
 				System.out.println(e.getMessage());
+				System.out.println("------------------------------------------------");
 			}
 		}
 		System.out.println();
-		System.out.println("Total Eraning "+totalAmount);
+		System.out.println("Total Earning "+totalAmount);
 	}
 
 	private void refillContainerOption() {

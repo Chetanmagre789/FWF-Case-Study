@@ -38,7 +38,7 @@ public class ContainerServiceImplTest {
 	@Test
 	public void getContainerByIngredient_WhenContainerIsEmpty_ShouldReturnNullObject() throws FileNotFoundException, EmptyException {
 		Container container = null;
-		when(containerDAO.getContainers()).thenReturn(Arrays.asList());
+		when(containerDAO.getContainers()).thenReturn(Arrays.asList(new Container()));
 		assertEquals(container, containerService.getContainerByIngredient(IngredientsWithMaxCapacity.COFFEE));
 	}
 
