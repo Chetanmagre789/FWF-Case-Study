@@ -15,3 +15,15 @@ Here we want a simulator of tea-coffee vending machine. The TCVM should have dif
 *  Container Status
 *  Reset Container
 *  Exit TCVM
+
+### Use Case Diagram
+
+![event listener](https://github.com/Chetanmagre789/FWF-Case-Study/blob/master/Tea-Coffee%20Vending%20Machine/TCVM-UseCase.png)
+
+### Running The Application
+1. Download the zip by clicking on Clone or Download > Download as Zip.
+2. Extract the downloaded zip file.
+3. Open Eclipse. Click on File > Import > Existing Maven Projects.
+4. Import the extracted folder.
+5. Go to ApplicationStartUp.java in com.yash.tvcm.main package.
+6. Right Click on ApplicationStartUp.java. Select Run as > Java Application.
